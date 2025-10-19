@@ -29,23 +29,16 @@ import com.example.composeuisample.data.Message
 import com.example.composeuisample.ui.theme.ComposeUiSampleTheme
 
 /**
- * note: 프로젝트 생성전 jdk 설치할 것, 그렇지 않을시 특정 자바 클래스를 찾지 못하는 오류가 발생할 수 있음.
- *
- * note: 안드로이드 스튜디오 자동 개행 변경 방법
- *  - Settings -> Editor -> Code Style -> Hard wrap at (Maximum line length) 필드 변경
- */
-
-/**
  * 메인 액티비티
  *
- * note: 컴포즈 설명
- *  - 선언형 UI 도구 키트
- *      - 기존 뷰 계층 구조: UI 위젯의 트리
- *      - 컴포즈: 선언형 UI 프레임워크
+ * 컴포즈 설명
+ * 선언형 UI 도구 키트:
+ *  - 기존 뷰 계층 구조: UI 위젯의 트리
+ *  - 컴포즈: 선언형 UI 프레임워크
  *
  * 참조 링크: https://developer.android.com/develop/ui/compose/mental-model?hl=ko
  *
- * note: 컴포즈 핵심개념
+ * 컴포즈 핵심 개념:
  *  - 데이터가 들어옴 -> UI에 반영함
  *  - UI에서 이벤트가 발생함 -> 이벤트를 데이터로 올림 (중요)
  *  - 데이터 상태가 변경됨
@@ -103,9 +96,9 @@ class MainActivity : ComponentActivity() {
     }
 
     /**
-     * note: 컴포즈 함수
-     * - 데이터를 받아서 UI 요소를 내보내는 구성 가능한 함수 집합을 정의하여 사용자 인터페이스를 빌드
-     * - @Composable 어노테이션: 모든 컴포즈 함수에는 이 어노테이션이 필요하며, 이 함수가 데이터를 UI로 변환하기 위한 함수라는 것을 컴포즈 컴파일러에 알림
+     * 컴포즈 함수:
+     *  - 데이터를 받아서 UI 요소를 내보내는 구성 가능한 함수 집합을 정의하여 사용자 인터페이스를 빌드
+     *  - @Composable 어노테이션: 모든 컴포즈 함수에는 이 어노테이션이 필요하며, 이 함수가 데이터를 UI로 변환하기 위한 함수라는 것을 컴포즈 컴파일러에 알림
      *
      * @param name
      * @param clickCount
@@ -124,13 +117,13 @@ class MainActivity : ComponentActivity() {
     }
 
     /**
-     * 메시지 컬렉션을 표시하는 컴포즈 함수
-     * - 스크롤이 필요하지 않은 경우 (방향에 따라) 간단한 Column 또는 Row를 사용
-     * - 목록을 반복하여 각 항목의 콘텐츠를 내보냄
+     * 메시지 컬렉션을 표시하는 컴포즈 함수:
+     *  - 스크롤이 필요하지 않은 경우 (방향에 따라) 간단한 Column 또는 Row를 사용
+     *  - 목록을 반복하여 각 항목의 콘텐츠를 내보냄
      *
-     * note: 많은 수의 항목이나 길이를 알 수 없는 목록을 표시해야 하는 경우
-     *       구성요소의 표시 영역에 표시되는 항목만 구성하여 배치하는 구성요소 집합을 사용
-     *       (LazyColumn, LazyRow 포함)
+     *  - 많은 수의 항목이나 길이를 알 수 없는 목록을 표시해야 하는 경우
+     *    구성요소의 표시 영역에 표시되는 항목만 구성하여 배치하는 구성요소 집합을 사용
+     *    (LazyColumn, LazyRow 포함)
      *
      * MessageList 함수는 onCreate로 이벤트 전달
      * MessageList를 Surface 함수에서 사용하기 위해 전달
@@ -159,7 +152,6 @@ class MainActivity : ComponentActivity() {
      */
     @Composable
     fun MessageRow(msg: Message, onDeleteClicked: (Message) -> Unit) {
-
         Surface(
             // 크기, 패딩 등 설정
             modifier = Modifier
