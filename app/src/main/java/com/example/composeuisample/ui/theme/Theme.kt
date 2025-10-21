@@ -32,6 +32,9 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
+/**
+ * 테마는 @Composable
+ */
 @Composable
 fun ComposeUiSampleTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -49,6 +52,10 @@ fun ComposeUiSampleTheme(
         else -> LightColorScheme
     }
 
+    /**
+     * MaterialTheme도 @Composable
+     *  층 안에 층이 들어가는 구조
+     */
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
