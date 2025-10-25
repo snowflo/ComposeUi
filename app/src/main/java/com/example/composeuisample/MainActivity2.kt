@@ -1,17 +1,23 @@
 package com.example.composeuisample
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
@@ -21,12 +27,15 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composeuisample.MainActivity2.Companion.TAG
 import com.example.composeuisample.ui.theme.ComposeUiSampleTheme
+import com.example.composeuisample.ui.theme.Purple40
+import com.example.composeuisample.ui.theme.Purple80
 
 /**
  * 컴포즈 복습을 위한 액티비티 생성
@@ -61,11 +70,23 @@ class MainActivity2 : ComponentActivity() {
                         MyFloatingActionButton()
                     }
                 ) { innerPadding ->
-                    Column {
-                        Greeting(
-                            name = "Android",
-                            modifier = Modifier.padding(innerPadding)
-                        )
+                    // innerPadding
+                    // content: @Composable (PaddingValues) -> Units
+                    // 메인 콘텐츠를 배치할 때 TopAppBar나 BottomAppBar에 가려지지 않도록 안전한 영역을 확보
+                    Column(
+                        Modifier
+                            .padding(innerPadding)
+                            .background(Purple80)
+                    ) {
+                        Greeting(name = "Android")
+                        Spacer(modifier = Modifier.size(10.dp))
+                        Row(Modifier.horizontalScroll(rememberScrollState())) {
+                            ChangeActivityButton(name = "MainActivity", clickEvent = {
+                                val intent = Intent(this@MainActivity2, MainActivity::class.java)
+                                startActivity(intent)
+                            })
+                        }
+                        Spacer(modifier = Modifier.size(10.dp))
                         MyComposableView()
                     }
                 }
@@ -137,20 +158,65 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 }
 
 /**
+ * 액티비티 변경 버튼
+ */
+@Composable
+fun ChangeActivityButton(name: String, clickEvent: () -> Unit) {
+    Button(
+        onClick = clickEvent,
+        modifier = Modifier
+            .background(Purple40)
+            .padding(4.dp)
+    ) {
+        Log.d(TAG, "$name 액티비티 변경 버튼 클릭")
+        Text(name)
+    }
+}
+
+/**
  * 커스텀뷰
+ *
+ * 큰 흐름
+ * Composable 안에 Composable 안에 Composable ... (중첩 가능)
+ * 각 Composable은 Modifier를 통해 설정 가능
+ * 데이터 핸들링: MutableState?
  */
 @Composable
 fun MyComposableView() {
     Log.d(TAG, "MyComposableView")
+    // vertical linear
+    Column(
+        Modifier.fillMaxWidth()
+
+    ) {
+        Column(
+            Modifier.verticalScroll(rememberScrollState())      // 스크롤
+        ) {
+            for (index in 0..30) {
+                MyRowView()
+            }
+        }
+    }
+}
+
+@Composable
+fun MyRowView() {
     // horizontal linear
     Row(
-        Modifier.padding(10.dp) // 패딩
+        Modifier
+            .padding(all = 10.dp)
+            .background(Color.LightGray),               // 패딩
+        verticalAlignment = Alignment.CenterVertically, // 세로 중앙 정렬
     ) {
-        Text("행1", Modifier.background(Color.Red))
+        Text(
+            "빨강", Modifier
+                .padding(all = 10.dp)
+                .background(Color.Red)
+        )
         Spacer(modifier = Modifier.size(10.dp)) // 여백
-        Text("행2", Modifier.background(Color.Green))
+        Text("초록", Modifier.background(Color.Green))
         Spacer(modifier = Modifier.size(10.dp))
-        Text("행3", Modifier.background(Color.Blue))
+        Text("파랑", Modifier.background(Color.Blue))
     }
 }
 

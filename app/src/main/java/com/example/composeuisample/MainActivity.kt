@@ -49,7 +49,7 @@ import com.example.composeuisample.ui.theme.ComposeUiSampleTheme
 class MainActivity : ComponentActivity() {
 
     companion object {
-        private const val TAG = "MainActivity"
+        const val TAG = "MainActivity"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,6 +83,9 @@ class MainActivity : ComponentActivity() {
                             messageList.add(element = newMsg)
                         })
 
+                        // MessageRow 함수의 onDeleteClicked 이벤트가 발생하면
+                        // messageList 데이터 상태가 변경
+                        // 변경된 데이터가 다시 들어와 UI에 다시 반영됨
                         MessageList(messages = messageList, onDeleteClicked = {
                             Log.d(TAG, "삭제됨: ${it.id}")
 
