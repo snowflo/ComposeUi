@@ -11,6 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ComposeUiSample">
         <activity
+            android:name=".sample.ListSampleActivity"
+            android:exported="false"
+            android:label="@string/title_activity_list_sample"
+            android:theme="@style/Theme.ComposeUiSample" />
+        <activity
             android:name=".MainActivity2"
             android:exported="true"
             android:label="@string/title_activity_main2"
@@ -25,9 +30,7 @@
             android:name=".MainActivity"
             android:exported="false"
             android:label="@string/title_activity_main"
-            android:theme="@style/Theme.ComposeUiSample">
-
-        </activity>
+            android:theme="@style/Theme.ComposeUiSample" />
     </application>
 
 </manifest>

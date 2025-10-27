@@ -33,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composeuisample.MainActivity2.Companion.TAG
+import com.example.composeuisample.sample.ListSampleActivity
 import com.example.composeuisample.ui.theme.ComposeUiSampleTheme
 import com.example.composeuisample.ui.theme.Purple40
 import com.example.composeuisample.ui.theme.Purple80
@@ -83,6 +84,10 @@ class MainActivity2 : ComponentActivity() {
                         Row(Modifier.horizontalScroll(rememberScrollState())) {
                             ChangeActivityButton(name = "MainActivity", clickEvent = {
                                 val intent = Intent(this@MainActivity2, MainActivity::class.java)
+                                startActivity(intent)
+                            })
+                            ChangeActivityButton(name = ListSampleActivity.TAG, clickEvent = {
+                                val intent = Intent(this@MainActivity2, ListSampleActivity::class.java)
                                 startActivity(intent)
                             })
                         }
