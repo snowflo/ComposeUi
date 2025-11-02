@@ -8,6 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -37,6 +38,7 @@ import com.example.composeuisample.sample.ListSampleActivity
 import com.example.composeuisample.ui.theme.ComposeUiSampleTheme
 import com.example.composeuisample.ui.theme.Purple40
 import com.example.composeuisample.ui.theme.Purple80
+import kotlin.random.Random
 
 /**
  * 컴포즈 복습을 위한 액티비티 생성
@@ -192,7 +194,6 @@ fun MyComposableView() {
     // vertical linear
     Column(
         Modifier.fillMaxWidth()
-
     ) {
         Column(
             Modifier.verticalScroll(rememberScrollState())      // 스크롤
@@ -206,22 +207,49 @@ fun MyComposableView() {
 
 @Composable
 fun MyRowView() {
+    val red = Random.nextInt(256)
+    val green = Random.nextInt(256)
+    val blue = Random.nextInt(256)
+    val randomColor = Color(red, green, blue)   // 랜덤색상
+
     // horizontal linear
+    // arrangement: 요소를 어떻게 배열할지. Row, Column 같은 요소들이 들어가는
+    // 컨테이너 성격의 컴포저블에서 요소들의 아이템을 정렬할 때 사용
+    // 웹 개발 css에서 flex와 유사?
+    // alignment
+
+    // SpaceBetween: 공간 모두 차지
+    // Start: 좌측
+    // End: 우측
+    // SpaceAround: 빈 공간을 남겨두기
+    // Center: 요소들에 넣기
+    // SpaceBetween: 사이에 공간을 밀어넣기
+    // SpaceEvenly: 요소들 사이에 공간을 똑같이 하기
     Row(
         Modifier
             .padding(all = 10.dp)
-            .background(Color.LightGray),               // 패딩
-        verticalAlignment = Alignment.CenterVertically, // 세로 중앙 정렬
+            .background(Color.LightGray)                    // 패딩
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,     // 세로 중앙 정렬
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
             "빨강", Modifier
                 .padding(all = 10.dp)
-                .background(Color.Red)
+                .background(randomColor)
         )
         Spacer(modifier = Modifier.size(10.dp)) // 여백
-        Text("초록", Modifier.background(Color.Green))
+        Text(
+            "초록", Modifier
+                .padding(all = 10.dp)
+                .background(randomColor)
+        )
         Spacer(modifier = Modifier.size(10.dp))
-        Text("파랑", Modifier.background(Color.Blue))
+        Text(
+            "파랑", Modifier
+                .padding(all = 10.dp)
+                .background(randomColor)
+        )
     }
 }
 
