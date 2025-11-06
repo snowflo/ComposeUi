@@ -9,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -231,7 +232,6 @@ fun MyRowView() {
             .background(Color.LightGray)                    // 패딩
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,     // 세로 중앙 정렬
-        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
             "빨강", Modifier
@@ -250,7 +250,29 @@ fun MyRowView() {
                 .padding(all = 10.dp)
                 .background(randomColor)
         )
+        Spacer(modifier = Modifier.size(10.dp))
+        Box(contentAlignment = Alignment.Center) {
+            // BOX는 아래로 갈수록 위에 그려짐.
+            MyBoxView(modifier = Modifier.size(64.dp), Color.Red)
+            MyBoxView(modifier = Modifier.size(32.dp), Color.Green)
+            MyBoxView(color = Color.Blue)
+        }
     }
+}
+
+@Composable
+fun MyBoxView(modifier: Modifier = Modifier, color: Color? = null) {
+    val red = Random.nextInt(256)
+    val green = Random.nextInt(256)
+    val blue = Random.nextInt(256)
+
+    // color가 값이 있다면 해당 값을 삽입. 없다면 랜덤 값을 삽입.
+    val randomColor = color ?: Color(red, green, blue)
+    Box(
+        modifier = modifier
+            .size(16.dp)
+            .background(randomColor)
+    )
 }
 
 /**
