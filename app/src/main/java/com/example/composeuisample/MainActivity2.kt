@@ -8,11 +8,11 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -251,8 +251,23 @@ fun MyRowView() {
                 .background(randomColor)
         )
         Spacer(modifier = Modifier.size(10.dp))
-        Box(contentAlignment = Alignment.Center) {
-            // BOX는 아래로 갈수록 위에 그려짐.
+        BoxWithConstraintsContainer()
+        Spacer(modifier = Modifier.size(10.dp))
+    }
+}
+
+@Composable
+fun BoxWithConstraintsContainer() {
+    BoxWithConstraints(
+        modifier = Modifier
+            .background(Color.White)
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center,
+        propagateMinConstraints = false // BoxWithConstraints의 최소 크기를 하위 컴포저블에 적용할지
+    ) {
+        this    // BoxWithConstraints는 일반 Box와 동일하나 constraints scope 사용 가능
+
+        Column {
             MyBoxView(modifier = Modifier.size(64.dp), Color.Red)
             MyBoxView(modifier = Modifier.size(32.dp), Color.Green)
             MyBoxView(color = Color.Blue)
@@ -268,11 +283,17 @@ fun MyBoxView(modifier: Modifier = Modifier, color: Color? = null) {
 
     // color가 값이 있다면 해당 값을 삽입. 없다면 랜덤 값을 삽입.
     val randomColor = color ?: Color(red, green, blue)
-    Box(
+    BoxWithConstraints(
         modifier = modifier
             .size(16.dp)
             .background(randomColor)
-    )
+    ) {
+        if (this.minWidth > 30.dp) {
+            Text(text = "Big Box")
+        } else {
+            Text(text = "Small Box")
+        }
+    }
 }
 
 /**
